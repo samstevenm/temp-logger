@@ -1,0 +1,11 @@
+[Unit]
+Description=Temperature Logging Service
+Documentation=https://github.com/samstevenm/temp-logger
+Wants=templog.timer
+
+[Service]
+ExecStart=/usr/bin/temperature
+WorkingDirectory=/home/pi/templog/
+
+[Install]
+WantedBy=multi-user.target

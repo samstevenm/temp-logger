@@ -1,0 +1,12 @@
+[Unit]
+Description=Temperature Logging Timer to run templog every 1 minute
+Documentation=https://github.com/samstevenm/temp-logger
+Requires=templog.service
+
+[Timer]
+Unit=templog.service
+OnBootSec=10s
+OnUnitActiveSec=10s
+
+[Install]
+WantedBy=multi-user.target timers.target
