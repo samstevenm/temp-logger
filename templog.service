@@ -4,7 +4,7 @@ Documentation=https://github.com/samstevenm/temp-logger
 Wants=templog.timer
 
 [Service]
-ExecStart=/usr/bin/temperature
+ExecStart=/usr/bin/templog
 WorkingDirectory=/home/pi/templog/
 
 [Install]
