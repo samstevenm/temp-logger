@@ -1,25 +1,28 @@
 # Logging Temperatures with a Raspi and ds18b20 sensors(s)
 
 ##### Much credit to https://tutorials-raspberrypi.com/raspberry-pi-temperature-sensor-1wire-ds18b20/
+
+#### Phsyically connecting to Raspi and initializing
 Sensor data wire(s) should be connected to GPIO 4.  
 Also need to connect GND and 3.3-5V.  
 
-Initialize the sensors:  
+##### Initialize the sensors:
 `sudo modprobe w1-gpio`  
 `sudo modprobe w1-therm`  
 
-Check that it worked:  
+##### Check that it worked:
 `lsmod`
 
 The modules should now be listed, if not, ensure GPIO pin 4 was used.  
 If yes, perhaps some error occurred while activating.  
-Might also check `sudo raspi-config` > interafacing options > 1 wire  
+Might also check `sudo raspi-config` > interfacing options  
+"1 wire" needs to be enabled
 
 To load the modules every time, we'll add them to `/etc/modules`  
 `sudo echo >> w1_gpio /etc/modules`  
 `sudo echo >> w1_ther /etc/modules`  
 
-##### Getting the ID(s) of the sensor(s).
+#### Getting the ID(s) of the sensor(s):
 If connecting several in parallel, it is best to connect one at a time.  
 Test each sensor individually, and make a note of it's ID.  
 
@@ -30,7 +33,7 @@ Go to the w1 directory and list the files:
 Sensors might look like  10-000802b4ba0e, 28-0516803024ff, or something similar.  
 We'll need this ID we use to query the sensor (adjust ID to match _your_ sensor)  
 
-##### Getting the output of sensor:
+#### Getting the output of sensor:
 Use a command like this to get the output of a sensor  
 `cat /sys/bus/w1/devices/10-000802b4ba0e/w1_slave`  
 `cat /sys/bus/w1/devices/28-0516803024f/w1_slave`  
@@ -42,16 +45,16 @@ Sample output, the value after `t=` is your temp in (in “mili-degrees °C”)
 ```
 Divided by 1000, we'd get 24.437 °C.
 
-##### For a bash example of transforming and showing these values:
+#### For a bash example of transforming and showing these values:
 See [`tempshow.sh`](tempshow.sh)  
 Consider making [`tempshow.sh`](tempshow.sh) executable `chmod +x tempshow.sh`  
 Also consider removing ".sh" and placing at `/usr/bin/tempshow`  
 
-##### For a bash example of logging these values to CSV:
+#### For a bash example of logging these values to CSV:
 See [`templog.sh`](templog.sh)  
 Same considerations as above apply.  
 
-##### For systemd service and timer examples see:
+#### For systemd service and timer examples see:
 [`templog.service`](templog.service)  
 [`templog.timer`](templog.timer)  
 which should be placed at `/etc/systemd/system/`  
