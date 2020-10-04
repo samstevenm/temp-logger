@@ -42,16 +42,17 @@ Sample output, the value after `t=` is your temp in (in “mili-degrees °C”)
 ```
 Divided by 1000, we'd get 24.437 °C.
 
-##### For examples of transforming and showing these values:
+##### For a bash example of transforming and showing these values:
 See [`tempshow.sh`](tempshow.sh)  
 Consider making [`tempshow.sh`](tempshow.sh) executable `chmod +x tempshow.sh`  
 Also consider removing ".sh" and placing at `/usr/bin/tempshow`  
 
-##### For examples of logging these values
+##### For a bash example of logging these values to CSV:
 See [`templog.sh`](templog.sh)  
 Same considerations as above apply.  
-systemd files
+
+##### For systemd service and timer examples see:
 [`templog.service`](templog.service)  
 [`templog.timer`](templog.timer)  
-to be placed at `/etc/systemd/system/`  
+which should be placed at `/etc/systemd/system/`  
 Use `systemctl` to `enable` | `start` | `stop` | `disable` | `restart`
