@@ -3,10 +3,10 @@
 LOG_DIR=/home/pi/templog
 LOG_FILE=$LOG_DIR/`date +%Y_%V`templog.csv
 
-#Make the log dir if it doesn't exisit
+#Make the log dir if it doesn't exist
 mkdir -p $LOG_DIR
 
-#Check if the log file exisits, if not make it and write the CSV headers
+#Check if the log file exists, if not make it and write the CSV headers
 if [ ! -e "$LOG_FILE" ] ; then
     touch "$LOG_FILE"
     echo "timestamp,black,red,green,blue,white" > $LOG_FILE
@@ -19,7 +19,7 @@ tempread_G=`cat /sys/bus/w1/devices/28-0316806035ff/w1_slave`
 tempread_B=`cat /sys/bus/w1/devices/28-0516802e56ff/w1_slave`
 tempread_W=`cat /sys/bus/w1/devices/28-0316805ff0ff/w1_slave`
 
-#Get just themp temperature portion
+#Get just temperature portion
 temp=${tempread##*=}
 temp_R=${tempread_R##*=}
 temp_G=${tempread_G##*=}
@@ -39,10 +39,5 @@ tempF_G=$( echo "scale=4; ((9/5) * $temp_G/1000) + 32" | bc )
 tempF_B=$( echo "scale=4; ((9/5) * $temp_B/1000) + 32" | bc )
 tempF_W=$( echo "scale=4; ((9/5) * $temp_W/1000) + 32" | bc )
 
-#Append lineto CSV file
+#Append line to CSV file
 echo `date +%Y-%m-%d_%H-%M-%S`","$tempF","$tempF_R","$tempF_G","$tempF_B","$tempF_W >> $LOG_FILE
-#echo "Black" $tempF "°F"
-#echo "Red" $tempF_R "°F"
-#echo "Green" $tempF_G "°F"
-#echo "Blue" $tempF_B "°F"
-#echo "White" $tempF_W "°F"
